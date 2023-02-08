@@ -3,7 +3,19 @@
 for(var i = 0; i<document.querySelectorAll(".drum").length; i++){
     document.querySelectorAll(".drum")[i].addEventListener("click", function (){
        var buttonInnerHtml = this.innerHTML;
-       switch(buttonInnerHtml){
+       makeSound(buttonInnerHtml);
+       buttonAnimation(buttonInnerHtml);
+    });
+}
+//Detecting keyboard press
+document.addEventListener("keypress", function(event){
+makeSound(event.key);
+buttonAnimation(event.key);
+});
+
+
+function makeSound(key){
+    switch(key){
         case "w":
             var tom1 = new Audio("sounds/tom-1.mp3")
             tom1.play();
@@ -38,6 +50,15 @@ for(var i = 0; i<document.querySelectorAll(".drum").length; i++){
            default:
             console.log();
        }
-    });
+    
 }
 
+function buttonAnimation(currentKry){
+    var activeButton = document.querySelector("."+currentKry);
+    activeButton.classList.add("pressed");
+
+    setTimeout(function(){
+        activeButton.classList.remove("pressed");
+    },100);
+
+}
